@@ -3,6 +3,7 @@
 // Developet by CashOverflowUz Team
 //--------------------------------------------------
 
+using CashOverflowUz.Brokers.Storages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +30,7 @@ namespace CashOverflowUz
                     name:"v1",
                    info: new OpenApiInfo { Title = "CashOverflowUz", Version = "v1" });
             });
+            services.AddTransient<IStorageBroker, StorageBroker>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment enveriment)
