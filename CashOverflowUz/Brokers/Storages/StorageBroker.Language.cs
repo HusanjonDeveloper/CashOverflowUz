@@ -3,6 +3,7 @@
 // Developet by CashOverflowUz Team
 //--------------------------------------------------
 
+using System.Threading.Tasks;
 using CashOverflowUz.Models.Languages;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,10 @@ namespace CashOverflowUz.Brokers.Storages
 {
     public partial class StorageBroker
     {
-        public DbSet<Language> Languages { get; set; }  
+        public DbSet<Language> Languages { get; set; }
+
+       public async ValueTask<Language> InsertLanguageAsync(Language language) =>
+            await InsertAsync(language);
+
     }
 }
