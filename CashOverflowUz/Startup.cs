@@ -3,6 +3,7 @@
 // Developet by CashOverflowUz Team
 //--------------------------------------------------
 
+using CashOverflowUz.Brokers.Loggins;
 using CashOverflowUz.Brokers.Storages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,10 +28,12 @@ namespace CashOverflowUz
             services.AddSwaggerGen(Action =>
             {
                 Action.SwaggerDoc(
-                    name:"v1",
+                    name: "v1",
                    info: new OpenApiInfo { Title = "CashOverflowUz", Version = "v1" });
             });
-            services.AddTransient<IStorageBroker, StorageBroker>();
+
+            AddBrokers(services);
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment enveriment)
@@ -54,5 +57,11 @@ namespace CashOverflowUz
                 endpoints.MapControllers());
 
         }
+            private static void AddBrokers(IServiceCollection services)
+            {
+                services.AddTransient<IStorageBroker, StorageBroker>();
+                services.AddTransient<ILoggingBroker, LoggingBroker>();
+            }
+
     }
 }
