@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CashOverflowUz.Models.job;
+using CashOverflowUz.Models.Locations;
 
 namespace CashOverflowUz.Brokers.Storages
 {

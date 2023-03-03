@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
-using CashOverflowUz.Models.Locations;
+﻿using CashOverflowUz.Models.Locations;
+using System.Threading.Tasks;
 
 namespace CashOverflowUz.Brokers.Storages
 {
-    public partial interface IStorageBrokerLocations
+    public  partial interface IStorageBroker
     {
         ValueTask<Location> InsertLocationAysnc(Location location);
+
     }
 }
