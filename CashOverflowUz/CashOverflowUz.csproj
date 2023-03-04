@@ -23,4 +23,8 @@
     <PackageReference Include="Xeption" Version="2.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Brokers\Loggins\" />
+  </ItemGroup>
+
 </Project>
