@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Xunit;
 
 namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Jobs
 {
-    internal class JobServiesTest
+    public partial class JobServiesTest
     {
+
+        [Fact]
+        public async Task ShouldThrowValidationExceptionOnAddIFInputIsNullAndLogItAsync()
+        {
+
+        }
     }
 }
