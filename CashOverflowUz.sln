@@ -5,9 +5,9 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashOverflowUz", "CashOverflowUz\CashOverflowUz.csproj", "{39C569F5-C2C0-4145-91BC-0DFBA524F35F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashOverflowUz.Infrastructure.Build", "CashOverflowUz.Infrastructure.Build\CashOverflowUz.Infrastructure.Build.csproj", "{7E396DD6-911F-441D-935C-0F600AB10EF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashOverflowUz.Infrastructure.Build", "CashOverflowUz.Infrastructure.Build\CashOverflowUz.Infrastructure.Build.csproj", "{7E396DD6-911F-441D-935C-0F600AB10EF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashOverflowUz.Tests.unit", "CashOverflowUz.Tests.unit\CashOverflowUz.Tests.unit.csproj", "{D3F954C6-CED6-44DC-9F94-4F4C69813C9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashOverflowUz.Tests.unit", "CashOverflowUz.Tests.unit\CashOverflowUz.Tests.unit.csproj", "{D3F954C6-CED6-44DC-9F94-4F4C69813C9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
