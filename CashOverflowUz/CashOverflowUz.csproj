@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Brokers\Loggins\**" />
+    <Content Remove="Brokers\Loggins\**" />
+    <EmbeddedResource Remove="Brokers\Loggins\**" />
+    <None Remove="Brokers\Loggins\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EFxceptions" Version="0.4.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
