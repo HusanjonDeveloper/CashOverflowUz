@@ -17,8 +17,8 @@ namespace CashOverflowUz.Services.Foundetions.Jobs
         public JobService(IStorageBroker storageBroker)=>
             this.storageBroker = storageBroker;
 
-        public ValueTask<Job> AddJobAsync(Job job)=>
-            throw new System.NotImplementedException();
+        public async ValueTask<Job> AddJobAsync(Job job)=>
+            await this.storageBroker.InsertJobAsync(job);
     
     }
 }
