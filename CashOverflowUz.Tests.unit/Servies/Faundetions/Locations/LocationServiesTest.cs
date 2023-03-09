@@ -17,8 +17,11 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
        public LocationServiesTest()
         {
             this.storageBrokerMock = new Mock<IStorageBroker>();
+            this.loggingBrokerMock = new Mock<ILoggingBroker>();
+
             this.locationService = new LocationService(
-                storageBroker: this.storageBrokerMock.Object);
+                storageBroker: this.storageBrokerMock.Object,
+                loggingBroker: this.loggingBrokerMock.Object);
         }
 
         private DateTimeOffset GetRandomDateTimeOffset() =>
