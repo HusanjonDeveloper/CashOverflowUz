@@ -8,7 +8,8 @@ namespace CashOverflowUz.Services.Foundetions.Locations
     {
         public IStorageBroker StorageBroker;
 
-        public LocationService(IStorageBroker storageBroker) =>
+        public LocationService(IStorageBroker storageBroker, 
+            Brokers.Loggings.ILoggingBroker loggingBroker) =>
             StorageBroker = storageBroker;
 
         public async ValueTask<Location> AddLocationAsyncs(Location location) =>

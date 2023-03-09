@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq.Expressions;
 using CashOverflowUz.Brokers.Loggings;
 using CashOverflowUz.Brokers.Storages;
 using CashOverflowUz.Models.Locations;
 using CashOverflowUz.Services.Foundetions.Locations;
 using Moq;
 using Tynamix.ObjectFiller;
+using Xeptions;
 
 namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
 {
@@ -23,7 +25,8 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
                 storageBroker: this.storageBrokerMock.Object,
                 loggingBroker: this.loggingBrokerMock.Object);
         }
-
+        private Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
+            actualException => actualException.SameExceptionAs(expectedException);
         private DateTimeOffset GetRandomDateTimeOffset() =>
             new DateTimeRange(earliestDate: DateTime.UnixEpoch).GetValue();
 
