@@ -13,6 +13,5 @@ namespace CashOverflowUz.Services.Foundetions.Locations
 
         public async ValueTask<Location> AddLocationAsyncs(Location location) =>
             await this.StorageBroker.InsertLocationAysnc(location);
-
     }
 }
