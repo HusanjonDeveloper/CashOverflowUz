@@ -32,6 +32,7 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
             broker.InsertLocationAysnc(inputLocation),Times.Once);
 
             this.storageBrokerMock.VerifyNoOtherCalls();
+            this.loggingBrokerMock.VerifyNoOtherCalls();
         }
 
        
