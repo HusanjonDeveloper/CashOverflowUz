@@ -1,4 +1,5 @@
 ﻿using System;
+using CashOverflowUz.Brokers.Loggings;
 using CashOverflowUz.Brokers.Storages;
 using CashOverflowUz.Models.Locations;
 using CashOverflowUz.Services.Foundetions.Locations;
@@ -10,6 +11,7 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
     public partial class LocationServiesTest
     {
         private readonly Mock<IStorageBroker> storageBrokerMock;
+        private readonly Mock<ILoggingBroker> loggingBrokerMock;
         private readonly ILocationService locationService;
 
        public LocationServiesTest()

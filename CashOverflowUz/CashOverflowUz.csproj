@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Brokers\Loggins\**" />
+    <Content Remove="Brokers\Loggins\**" />
+    <EmbeddedResource Remove="Brokers\Loggins\**" />
+    <None Remove="Brokers\Loggins\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EFxceptions" Version="0.4.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
@@ -21,10 +28,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Tynamix.ObjectFiller" Version="1.5.8" />
     <PackageReference Include="Xeption" Version="2.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Brokers\Loggins\" />
   </ItemGroup>
 
 </Project>
