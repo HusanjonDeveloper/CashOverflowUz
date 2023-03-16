@@ -2,6 +2,7 @@
 using CashOverflowUz.Models.Locations;
 using CashOverflowUz.Models.Locations.Exceptions;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Moq;
 using Xunit;
 
@@ -37,6 +38,65 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
 
              this.storageBrokerMock.VerifyNoOtherCalls();
             this.loggingBrokerMock.VerifyNoOtherCalls();
+        }
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+
+        public async Task ShouldThrowValidationExceptionOnAddIfLocationIsInvalidAndLogItAsync(
+            string invalidText)
+        {
+            // given 
+
+            var invalidLocation = new Location
+            {
+                Name= invalidText
+            };
+
+            var invalidLocationException = new InvalidLocationException();
+
+            invalidLocationException.AddData(
+                key: nameof(Location.id),
+                values: "Id is required");
+
+            invalidLocationException.AddData(
+              key: nameof(Location.Name),
+              values: "Text is required");
+
+            invalidLocationException.AddData(
+              key: nameof(Location.CreatedDate),
+              values: "Date is required");
+
+            invalidLocationException.AddData(
+              key: nameof(Location.UpdatedDate),
+              values: "Date is required");
+
+            var expectedValidationException = 
+                new LocationValidationException(invalidLocationException);
+
+            // when 
+
+            ValueTask<Location> addLocationTask =
+                this.locationService.AddLocationAsyncs(invalidLocation);
+
+            LocationValidationException actualLocationValidationException =
+                await Assert.ThrowsAsync<LocationValidationException>(addLocationTask.AsTask);
+
+            // then
+
+            actualLocationValidationException.Should()
+                .BeEquivalentTo(expectedValidationException);
+
+            this.loggingBrokerMock.Verify(broker =>
+             broker.LogError(It.Is(SameExceptionAs(
+               expectedValidationException))),Times.Once());
+
+            this.storageBrokerMock.Verify(broker =>
+            broker.InsertLocationAysnc(It.IsAny<Location>()),Times.Never());
+
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+            this.storageBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
