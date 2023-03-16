@@ -3,6 +3,8 @@
 // Developet by CashOverflowUz Team
 //--------------------------------------------------
 
+using CashOverflowUz.Brokers.DateTimes;
+using CashOverflowUz.Brokers.Loggings;
 using CashOverflowUz.Brokers.Loggins;
 using CashOverflowUz.Brokers.Storages;
 using Microsoft.AspNetCore.Builder;
@@ -61,7 +63,7 @@ namespace CashOverflowUz
             {
                 services.AddTransient<IStorageBroker, StorageBroker>();
                 services.AddTransient<ILoggingBroker, LoggingBroker>();
-            }
-
+                services.AddTransient<IDateTimeBroker, DateTimeBroker>();
+             }
     }
 }
