@@ -1,4 +1,6 @@
 ﻿using System;
+using CashOverflowUz.Brokers.Loggings;
+using CashOverflowUz.Brokers.Loggins;
 using CashOverflowUz.Brokers.Storages;
 using CashOverflowUz.Models.Locations;
 using CashOverflowUz.Services.Foundetions.Locations;
@@ -10,13 +12,17 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
     public partial class LocationServiesTest
     {
         private readonly Mock<IStorageBroker> storageBrokerMock;
+        private readonly Mock<ILoggingBroker> loggingBrokerMock;
         private readonly ILocationService locationService;
 
        public LocationServiesTest()
         {
             this.storageBrokerMock = new Mock<IStorageBroker>();
+            this.loggingBrokerMock = new Mock<ILoggingBroker>();
+
             this.locationService = new LocationService(
-                storageBroker: this.storageBrokerMock.Object);
+                storageBroker: this.storageBrokerMock.Object,
+                loggingBroker: this.loggingBrokerMock.Object);
         }
 
         private DateTimeOffset GetRandomDateTimeOffset() =>
