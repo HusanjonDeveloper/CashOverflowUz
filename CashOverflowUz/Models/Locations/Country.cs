@@ -5,7 +5,7 @@
 
 namespace CashOverflowUz.Models.Locations
 {
-    public enum  Country
+    public enum Country
     {
         Uzbekistan
     }

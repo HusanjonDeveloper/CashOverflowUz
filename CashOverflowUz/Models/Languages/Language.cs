@@ -7,7 +7,7 @@ using System;
 
 namespace CashOverflowUz.Models.Languages
 {
-    public  class Language
+    public class Language
     {
         public Guid id { get; set; }
         public string Name { get; set; }

@@ -22,19 +22,19 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
             this.storageBrokerMock.Setup(broker =>
             broker.InsertLocationAysnc(inputLocation)).ReturnsAsync(persistedLocation);
             // when
-          Location actualLocation  =
-                await this.locationService.AddLocationAsyncs(inputLocation);
+            Location actualLocation =
+                  await this.locationService.AddLocationAsyncs(inputLocation);
 
             //  then
-           actualLocation.Should().BeEquivalentTo(expectedLocation);
+            actualLocation.Should().BeEquivalentTo(expectedLocation);
 
             this.storageBrokerMock.Verify(broker =>
-            broker.InsertLocationAysnc(inputLocation),Times.Once);
+            broker.InsertLocationAysnc(inputLocation), Times.Once);
 
             this.storageBrokerMock.VerifyNoOtherCalls();
             this.loggingBrokerMock.VerifyNoOtherCalls();
         }
 
-       
+
     }
 }

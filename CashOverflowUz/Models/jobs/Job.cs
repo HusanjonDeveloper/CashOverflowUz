@@ -11,7 +11,7 @@ namespace CashOverflowUz.Models.job
     {
         public Guid id { get; set; }
         public string Title { get; set; }
-        public Level  level { get; set; }
+        public Level level { get; set; }
         public DateTimeOffset UpdatedDate { get; set; }
 
     }

@@ -16,7 +16,7 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
         private readonly Mock<ILoggingBroker> loggingBrokerMock;
         private readonly ILocationService locationService;
 
-       public LocationServiesTest()
+        public LocationServiesTest()
         {
             this.storageBrokerMock = new Mock<IStorageBroker>();
             this.loggingBrokerMock = new Mock<ILoggingBroker>();
@@ -43,7 +43,6 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
             return filler;
         }
 
-       
+
     }
 }
- 

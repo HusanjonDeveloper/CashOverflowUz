@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace CashOverflowUz.Brokers.Storages
 {
-    public partial class StorageBroker:EFxceptionsContext, IStorageBroker
+    public partial class StorageBroker : EFxceptionsContext, IStorageBroker
     {
         public readonly IConfiguration Configuration;
 
@@ -15,7 +15,7 @@ namespace CashOverflowUz.Brokers.Storages
             this.Database.Migrate();
         }
 
-      public async ValueTask<T> InsertAsync<T>(T@object)
+        public async ValueTask<T> InsertAsync<T>(T @object)
         {
             var broker = new StorageBroker(this.Configuration);
             broker.Entry(@object).State = EntityState.Added;
@@ -26,8 +26,8 @@ namespace CashOverflowUz.Brokers.Storages
         {
             string connectionString =
                 this.Configuration.GetConnectionString(name: "DefaultConnection");
-           
-            optionsBuilder.UseSqlServer(connectionString);  
+
+            optionsBuilder.UseSqlServer(connectionString);
         }
     }
 }

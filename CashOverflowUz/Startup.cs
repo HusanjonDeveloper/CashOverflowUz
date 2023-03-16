@@ -27,7 +27,7 @@ namespace CashOverflowUz
             services.AddSwaggerGen(Action =>
             {
                 Action.SwaggerDoc(
-                    name:"v1",
+                    name: "v1",
                    info: new OpenApiInfo { Title = "CashOverflowUz", Version = "v1" });
             });
             services.AddTransient<IStorageBroker, StorageBroker>();
@@ -42,8 +42,8 @@ namespace CashOverflowUz
 
                 app.UseSwaggerUI(Action =>
                 Action.SwaggerEndpoint(
-                    url:"/swagger/v1/swagger.json",
-                    name:"CashOverflowUz v1"));
+                    url: "/swagger/v1/swagger.json",
+                    name: "CashOverflowUz v1"));
             }
 
             app.UseHttpsRedirection();

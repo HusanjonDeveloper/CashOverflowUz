@@ -3,9 +3,9 @@
 // Developet by CashOverflowUz Team
 //--------------------------------------------------
 
-using CashOverflowUz.Models.Locations.Exceptions;
-using CashOverflowUz.Models.Locations;
 using System;
+using CashOverflowUz.Models.Locations;
+using CashOverflowUz.Models.Locations.Exceptions;
 
 namespace CashOverflowUz.Services.Foundetions.Locations
 {
@@ -19,7 +19,7 @@ namespace CashOverflowUz.Services.Foundetions.Locations
                 (Rule: Islnvalid(location.id), Parameter: nameof(location.id)),
                 (Rule: Islnvalid(location.Name), Parameter: nameof(location.Name)),
                 (Rule: Islnvalid(location.CreatedDate), Parameter: nameof(location.CreatedDate)),
-                (Rule: Islnvalid(location.UpdatedDate), Parameter: nameof(location.UpdatedDate))); 
+                (Rule: Islnvalid(location.UpdatedDate), Parameter: nameof(location.UpdatedDate)));
         }
 
         private static void ValidateLocationNotNull(Location location)
@@ -48,23 +48,23 @@ namespace CashOverflowUz.Services.Foundetions.Locations
             Message = "Date is required"
         };
 
-        private static void Validate(params(dynamic Rule, string Parameter)[] validatios)
+        private static void Validate(params (dynamic Rule, string Parameter)[] validatios)
         {
             var invalidLocationException =
                 new InvalidLocationException();
 
-            foreach ((dynamic  rule, string parameter)in validatios)
+            foreach ((dynamic rule, string parameter) in validatios)
             {
-                if(rule.Condition)
+                if (rule.Condition)
                 {
                     invalidLocationException.UpsertDataList(
-                        key:parameter,
-                        value:rule.Message);
+                        key: parameter,
+                        value: rule.Message);
                 }
             }
 
             invalidLocationException.ThrowIfContainsErrors();
-        
+
         }
     }
 }

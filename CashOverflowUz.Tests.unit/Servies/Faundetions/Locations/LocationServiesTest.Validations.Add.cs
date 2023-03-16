@@ -30,12 +30,12 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
                 .BeEquivalentTo(expectedValidationException);
 
             this.loggingBrokerMock.Verify(broker =>
-            broker.LogError(It.Is(SameExceptionAs(expectedValidationException))),Times.Once);
+            broker.LogError(It.Is(SameExceptionAs(expectedValidationException))), Times.Once);
 
             this.storageBrokerMock.Verify(broker =>
-            broker.InsertLocationAysnc(It.IsAny<Location>()),Times.Never);
+            broker.InsertLocationAysnc(It.IsAny<Location>()), Times.Never);
 
-             this.storageBrokerMock.VerifyNoOtherCalls();
+            this.storageBrokerMock.VerifyNoOtherCalls();
             this.loggingBrokerMock.VerifyNoOtherCalls();
         }
         [Theory]
@@ -50,7 +50,7 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
 
             var invalidLocation = new Location
             {
-                Name= invalidText
+                Name = invalidText
             };
 
             var invalidLocationException = new InvalidLocationException();
@@ -71,7 +71,7 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
               key: nameof(Location.UpdatedDate),
               values: "Date is required");
 
-            var expectedValidationException = 
+            var expectedValidationException =
                 new LocationValidationException(invalidLocationException);
 
             // when 
@@ -89,10 +89,10 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
 
             this.loggingBrokerMock.Verify(broker =>
              broker.LogError(It.Is(SameExceptionAs(
-               expectedValidationException))),Times.Once());
+               expectedValidationException))), Times.Once());
 
             this.storageBrokerMock.Verify(broker =>
-            broker.InsertLocationAysnc(It.IsAny<Location>()),Times.Never());
+            broker.InsertLocationAysnc(It.IsAny<Location>()), Times.Never());
 
             this.loggingBrokerMock.VerifyNoOtherCalls();
             this.storageBrokerMock.VerifyNoOtherCalls();

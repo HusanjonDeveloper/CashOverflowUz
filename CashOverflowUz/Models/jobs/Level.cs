@@ -5,7 +5,7 @@
 
 namespace CashOverflowUz.Models.job
 {
-    public enum  Level
+    public enum Level
     {
         Other,
         Juniyor,

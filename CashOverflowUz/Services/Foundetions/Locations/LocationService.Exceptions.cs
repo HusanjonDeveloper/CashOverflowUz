@@ -12,8 +12,8 @@ namespace CashOverflowUz.Services.Foundetions.Locations
 {
     public partial class LocationService
     {
-        private  delegate ValueTask<Location> ReturningLocationFunction();
-        
+        private delegate ValueTask<Location> ReturningLocationFunction();
+
         private async ValueTask<Location> TryCatch(ReturningLocationFunction returningLocationFunction)
         {
             try
@@ -22,16 +22,16 @@ namespace CashOverflowUz.Services.Foundetions.Locations
             }
             catch (NullLocationException nullLocationException)
             {
-              throw  CreateAndLogValidationException(nullLocationException);
+                throw CreateAndLogValidationException(nullLocationException);
             }
-            catch(InvalidLocationException invalidLocationException)
+            catch (InvalidLocationException invalidLocationException)
             {
                 throw CreateAndLogValidationException(invalidLocationException);
             }
 
         }
 
-        private LocationValidationException CreateAndLogValidationException( Xeption xeption)
+        private LocationValidationException CreateAndLogValidationException(Xeption xeption)
         {
             var locationValidationException =
                  new LocationValidationException(xeption);
