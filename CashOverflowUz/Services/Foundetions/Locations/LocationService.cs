@@ -12,7 +12,8 @@ namespace CashOverflowUz.Services.Foundetions.Locations
 
         public LocationService(
             IStorageBroker storageBroker,
-            ILoggingBroker loggingBroker)
+            ILoggingBroker loggingBroker,
+            Brokers.DateTimes.IDateTimeBroker dateTimeBroker)
         {
             this.StorageBroker = storageBroker;
             this.loggingBroker = loggingBroker;

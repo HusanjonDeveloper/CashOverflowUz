@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using CashOverflowUz.Brokers.DateTimes;
 using CashOverflowUz.Brokers.Loggings;
 using CashOverflowUz.Brokers.Storages;
 using CashOverflowUz.Models.Locations;
@@ -13,16 +14,19 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
     public partial class LocationServiesTest
     {
         private readonly Mock<IStorageBroker> storageBrokerMock;
+        private readonly Mock<IDateTimeBroker> dateTimeBrokerMock;
         private readonly Mock<ILoggingBroker> loggingBrokerMock;
         private readonly ILocationService locationService;
 
         public LocationServiesTest()
         {
             this.storageBrokerMock = new Mock<IStorageBroker>();
+            this.dateTimeBrokerMock= new Mock<IDateTimeBroker>();
             this.loggingBrokerMock = new Mock<ILoggingBroker>();
 
             this.locationService = new LocationService(
                 storageBroker: this.storageBrokerMock.Object,
+                dateTimeBroker: this.dateTimeBrokerMock.Object,
                 loggingBroker: this.loggingBrokerMock.Object);
         }
         private Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
