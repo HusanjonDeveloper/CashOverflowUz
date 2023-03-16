@@ -2,7 +2,6 @@
 using CashOverflowUz.Models.Locations;
 using CashOverflowUz.Models.Locations.Exceptions;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Moq;
 using Xunit;
 

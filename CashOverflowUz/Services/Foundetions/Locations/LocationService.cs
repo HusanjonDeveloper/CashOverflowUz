@@ -20,7 +20,6 @@ namespace CashOverflowUz.Services.Foundetions.Locations
         public  ValueTask<Location> AddLocationAsyncs(Location location) =>
             TryCatch(async ()=>
             {
-                ValidateLocationNotNull(location);
                 return await this.StorageBroker.InsertLocationAysnc(location);
             });
     }

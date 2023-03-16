@@ -23,7 +23,10 @@ namespace CashOverflowUz.Services.Foundetions.Locations
             catch (NullLocationException nullLocationException)
             {
               throw  CreateAndLogValidationException(nullLocationException);
-
+            }
+            catch(InvalidLocationException invalidLocationException)
+            {
+                throw CreateAndLogValidationException(invalidLocationException);
             }
 
         }
