@@ -4,8 +4,12 @@
 //--------------------------------------------------
 
 using System;
+using System.Data;
+using System.Reflection.Metadata;
 using CashOverflowUz.Models.Locations;
 using CashOverflowUz.Models.Locations.Exceptions;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CashOverflowUz.Services.Foundetions.Locations
 {
@@ -19,7 +23,14 @@ namespace CashOverflowUz.Services.Foundetions.Locations
                 (Rule: Islnvalid(location.id), Parameter: nameof(location.id)),
                 (Rule: Islnvalid(location.Name), Parameter: nameof(location.Name)),
                 (Rule: Islnvalid(location.CreatedDate), Parameter: nameof(location.CreatedDate)),
-                (Rule: Islnvalid(location.UpdatedDate), Parameter: nameof(location.UpdatedDate)));
+                (Rule: Islnvalid(location.UpdatedDate), Parameter: nameof(location.UpdatedDate)),
+                
+                (Rule: Islnvalid(
+                    fristDate: location.CreatedDate,
+                    secondDate: location.UpdatedDate,
+                    secondDateName: nameof(Location.UpdatedDate)),
+
+                    Parameter: nameof(Location.CreatedDate)));
         }
 
         private static void ValidateLocationNotNull(Location location)
@@ -41,6 +52,15 @@ namespace CashOverflowUz.Services.Foundetions.Locations
             Condition = string.IsNullOrWhiteSpace(text),
             Message = "text is required"
         };
+
+        private static dynamic Islnvalid(
+            DateTimeOffset fristDate,
+            DateTimeOffset secondDate,
+            string secondDateName) => new
+            {
+                Condition = fristDate != secondDate,
+                Message = $"Date is not same as {secondDateName}"
+            };
 
         private static dynamic Islnvalid(DateTimeOffset date) => new
         {
