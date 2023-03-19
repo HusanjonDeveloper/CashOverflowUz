@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq.Expressions;
-using CashOverflowUz.Brokers.DateTimes;
 using CashOverflowUz.Brokers.Loggings;
 using CashOverflowUz.Brokers.Storages;
 using CashOverflowUz.Models.Locations;
@@ -21,7 +20,7 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
         public LocationServiesTest()
         {
             this.storageBrokerMock = new Mock<IStorageBroker>();
-            this.dateTimeBrokerMock= new Mock<IDateTimeBroker>();
+            this.dateTimeBrokerMock = new Mock<IDateTimeBroker>();
             this.loggingBrokerMock = new Mock<ILoggingBroker>();
 
             this.locationService = new LocationService(
@@ -31,11 +30,15 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
         }
         private Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
             actualException => actualException.SameExceptionAs(expectedException);
+
+        private int GetRandomNumber() =>
+            new IntRange(min: 2, max: 9).GetValue();
         private DateTimeOffset GetRandomDateTimeOffset() =>
             new DateTimeRange(earliestDate: DateTime.UnixEpoch).GetValue();
-
+        private Location CreateRandomLocation(DateTimeOffset dates) =>
+           CreateLocationFiller(dates).Create();
         private Location CreateRandomLocation() =>
-            CreateLocationFiller(GetRandomDateTimeOffset()).Create();
+            CreateLocationFiller(dates:GetRandomDateTimeOffset()).Create();
 
         private Filler<Location> CreateLocationFiller(DateTimeOffset dates)
         {
