@@ -129,7 +129,8 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
 
             // then
 
-            actualLocationValidationException.Should().BeEquivalentTo(expectedlocationValidationException);
+            actualLocationValidationException.
+                Should().BeEquivalentTo(expectedlocationValidationException);
 
             this.loggingBrokerMock.Verify(broker =>
              broker.LogError(It.Is(SameExceptionAs(
