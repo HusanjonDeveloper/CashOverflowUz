@@ -7,6 +7,7 @@ using CashOverflowUz.Services.Foundetions.Locations;
 using Moq;
 using Tynamix.ObjectFiller;
 using Xeptions;
+using Xunit;
 
 namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
 {
@@ -28,10 +29,26 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
                 dateTimeBroker: this.dateTimeBrokerMock.Object,
                 loggingBroker: this.loggingBrokerMock.Object);
         }
+
+        public static TheoryData<int> InvalidMinutes()
+        {
+            int minutesInFuture = GetRandomNumber();
+            int minutesInPast = GetRandomNegativeNumber();
+
+            return new TheoryData<int>
+            {
+                minutesInFuture,
+                minutesInPast
+            };
+        }
         private Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
             actualException => actualException.SameExceptionAs(expectedException);
 
-        private int GetRandomNumber() =>
+
+        private static int GetRandomNegativeNumber() =>
+          -1*  new IntRange(min: 2, max: 9).GetValue();
+
+        private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 9).GetValue();
         private DateTimeOffset GetRandomDateTimeOffset() =>
             new DateTimeRange(earliestDate: DateTime.UnixEpoch).GetValue();
