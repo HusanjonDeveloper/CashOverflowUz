@@ -3,9 +3,11 @@
 // Developet by CashOverflowUz Team
 //--------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using CashOverflowUz.Models.Locations;
 using CashOverflowUz.Models.Locations.Exceptions;
+using Microsoft.Data.SqlClient;
 using Xeptions;
 
 namespace CashOverflowUz.Services.Foundetions.Locations
@@ -28,9 +30,12 @@ namespace CashOverflowUz.Services.Foundetions.Locations
             {
                 throw CreateAndLogValidationException(invalidLocationException);
             }
-
+            catch(SqlException sqlException)
+            {
+                var failedLocationStorageException = new FailedLocationStorageException(sqlException);
+                throw CreateAndLogCriticalDependencyException(failedLocationStorageException);
+            }
         }
-
         private LocationValidationException CreateAndLogValidationException(Xeption xeption)
         {
             var locationValidationException =
@@ -38,6 +43,13 @@ namespace CashOverflowUz.Services.Foundetions.Locations
 
             this.loggingBroker.LogError(locationValidationException);
             return locationValidationException;
+        }
+        private LocationDependencyException CreateAndLogCriticalDependencyException(Xeption xeption)
+        {
+           var locationDependencyException = new LocationDependencyException(xeption);
+            this.loggingBroker.LogCritical(locationDependencyException);
+            
+            return locationDependencyException;
         }
     }
 }
