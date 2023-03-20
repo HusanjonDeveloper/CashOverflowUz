@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Runtime.Serialization;
 using CashOverflowUz.Brokers.Loggings;
 using CashOverflowUz.Brokers.Storages;
 using CashOverflowUz.Models.Locations;
 using CashOverflowUz.Services.Foundetions.Locations;
+using Microsoft.Data.SqlClient;
 using Moq;
 using Tynamix.ObjectFiller;
 using Xeptions;
@@ -41,6 +43,11 @@ namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Locations
                 minutesInPast
             };
         }
+
+
+        private SqlException CreateSqlException() =>
+         (SqlException)FormatterServices.GetSafeUninitializedObject(typeof(SqlException));   
+        
         private Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
             actualException => actualException.SameExceptionAs(expectedException);
 
