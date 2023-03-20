@@ -4,13 +4,8 @@
 //--------------------------------------------------
 
 using System;
-using System.Data;
-using System.Reflection.Metadata;
 using CashOverflowUz.Models.Locations;
 using CashOverflowUz.Models.Locations.Exceptions;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 namespace CashOverflowUz.Services.Foundetions.Locations
 {
     public partial class LocationService
@@ -20,11 +15,12 @@ namespace CashOverflowUz.Services.Foundetions.Locations
             ValidateLocationNotNull(location);
 
             Validate(
-                (Rule: Islnvalid(location.id), Parameter: nameof(location.id)),
-                (Rule: Islnvalid(location.Name), Parameter: nameof(location.Name)),
-                (Rule: Islnvalid(location.CreatedDate), Parameter: nameof(location.CreatedDate)),
-                (Rule: Islnvalid(location.UpdatedDate), Parameter: nameof(location.UpdatedDate)),
-                
+                (Rule: Islnvalid(location.id), Parameter: nameof(Location.id)),
+                (Rule: Islnvalid(location.Name), Parameter: nameof(Location.Name)),
+                (Rule: Islnvalid(location.CreatedDate), Parameter: nameof(Location.CreatedDate)),
+                (Rule: Islnvalid(location.UpdatedDate), Parameter: nameof(Location.UpdatedDate)),
+                (Rule: IsNotRecent(location.CreatedDate), Parameter: nameof(Location.CreatedDate)),
+
                 (Rule: Islnvalid(
                     fristDate: location.CreatedDate,
                     secondDate: location.UpdatedDate,
@@ -67,6 +63,21 @@ namespace CashOverflowUz.Services.Foundetions.Locations
             Condition = date == default,
             Message = "Date is required"
         };
+
+        private  dynamic IsNotRecent(DateTimeOffset date) => new
+        {
+            Condition = IsDateNotRecent(date),
+            Message = "Date is not recent"
+        };
+
+        private  bool IsDateNotRecent(DateTimeOffset date)// 10:50:20
+        {
+          DateTimeOffset currentDate =this.dateTimebroker.GetCurrentDateOffset();// 10:51:00
+          TimeSpan timeDifference = currentDate.Subtract(date);// 40
+            double seconds = timeDifference.TotalSeconds;
+
+            return timeDifference.Seconds is > 60 or < 0;
+        }
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validatios)
         {
