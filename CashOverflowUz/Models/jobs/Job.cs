@@ -9,10 +9,10 @@ namespace CashOverflowUz.Models.job
 {
 	public class Job
 	{
-		public Guid id { get; set; }
+		public Guid Id { get; set; }
 		public string Title { get; set; }
-		public Level level { get; set; }
+		public Level Level { get; set; }
+		public DateTimeOffset CreatedDate { get; set; }
 		public DateTimeOffset UpdatedDate { get; set; }
-
 	}
 }
