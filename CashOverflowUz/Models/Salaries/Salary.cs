@@ -9,7 +9,7 @@ namespace CashOverflowUz.Models.Salaries
 {
 	public class Salary
 	{
-		public Guid id { get; set; }
+		public Guid Id { get; set; }
 		public decimal Amount { get; set; }
 		public int Experience { get; set; }
 		public DateTimeOffset CreatedDate { get; set; }
