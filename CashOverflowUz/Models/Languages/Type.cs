@@ -5,11 +5,11 @@
 
 namespace CashOverflowUz.Models.Languages
 {
-    public enum Type
-    {
-        Other,
-        Frontend,
-        Backend,
-        Fullstack
-    }
+	public enum Type
+	{
+		Other,
+		Frontend,
+		Backend,
+		Fullstack
+	}
 }

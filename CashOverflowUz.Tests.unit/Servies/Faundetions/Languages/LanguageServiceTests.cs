@@ -7,66 +7,115 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
-using CashOverflow.Brokers.Loggings;
 using CashOverflow.Brokers.Storages;
 using CashOverflow.Services.Foundations.Languages;
-using CashOverflowUz.Brokers.Storages;
+using CashOverflowUz.Brokers.DateTimes;
+using CashOverflowUz.Brokers.Loggings;
 using CashOverflowUz.Models.Languages;
 using Microsoft.Data.SqlClient;
 using Moq;
 using Tynamix.ObjectFiller;
 using Xeptions;
-using IStorageBroker = CashOverflowUz.Brokers.Storages.IStorageBroker;
+using Xunit;
 
 namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Languages
 {
-    public partial class LanguageServiceTests
-    {
-        private readonly Mock<IStorageBroker> storageBrokerMock;
-        private readonly Mock<ILoggingBroker> loggingBrokerMock;
-        private readonly ILanguageService languageService;
+	public partial class LanguageServiceTests
+	{
+		private readonly Mock<IStorageBroker> storageBrokerMock;
+		private readonly Mock<ILoggingBroker> loggingBrokerMock;
+		private readonly Mock<IDateTimeBroker> dateTimeBrokerMock;
+		private readonly ILanguageService languageService;
 
-        public LanguageServiceTests()
-        {
-            storageBrokerMock = new Mock<IStorageBroker>();
-            loggingBrokerMock = new Mock<ILoggingBroker>();
+		public LanguageServiceTests()
+		{
+			this.storageBrokerMock = new Mock<IStorageBroker>();
+			this.loggingBrokerMock = new Mock<ILoggingBroker>();
+			this.dateTimeBrokerMock = new Mock<IDateTimeBroker>();
 
-            languageService = new LanguageService(
-                storageBroker: (CashOverflow.Brokers.Storages
-                .IStorageBroker)storageBrokerMock.Object,
-                
-                loggingBroker: loggingBrokerMock.Object);
-        }
+			this.languageService = new LanguageService(
+				storageBroker: this.storageBrokerMock.Object,
+				loggingBroker: this.loggingBrokerMock.Object,
+				dateTimeBroker: this.dateTimeBrokerMock.Object);
 
-        private static IQueryable<Language> CreateRandomLanguages()
-        {
-            return CreateLanguageFiller(date: GetRandomDateTimeOffset())
-                .Create(count: GetRandomNumber()).AsQueryable();
-        }
+		}
 
-        private static int GetRandomNumber() =>
-            new IntRange(min: 2, max: 10).GetValue();
+		private IQueryable<Language> CreateRandomLanguages()
+		{
+			return CreateLanguageFiller(dates: GetRandomDatetimeOffset())
+				.Create(count: GetRandomNumber()).AsQueryable();
+		}
 
-        private static DateTimeOffset GetRandomDateTimeOffset() =>
-            new DateTimeRange(earliestDate: new DateTime()).GetValue();
+		public static TheoryData<int> InvalidMinutes()
+		{
+			int minutesInFuture = GetRandomNumber();
+			int minutesInPast = GetRandomNegativeNumber();
 
-        private static SqlException GetSqlException() =>
-            (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
+			return new TheoryData<int>
+			{
+				minutesInFuture,
+				minutesInPast
+			};
+		}
+		public static TheoryData<int> InvalidSeconds()
+		{
+			int secondsInPast = -1 * new IntRange(
+				min: 60,
+				max: short.MaxValue).GetValue();
 
-        private static Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
-            actualException => actualException.SameExceptionAs(expectedException);
+			int secondsInFuture = new IntRange(
+				min: 0,
+				max: short.MaxValue).GetValue();
 
-        private static string GetRandomMessage() =>
-            new MnemonicString(wordCount: GetRandomNumber()).GetValue();
+			return new TheoryData<int>
+			{
+				secondsInPast,
+				secondsInFuture
+			};
+		}
 
-        private static Filler<Language> CreateLanguageFiller(DateTimeOffset date)
-        {
-            var filler = new Filler<Language>();
+		private string GetRandomString() =>
+			new MnemonicString().GetValue();
 
-            filler.Setup()
-                .OnType<DateTimeOffset>().Use(date);
+		private static int GetRandomNumber() =>
+			new IntRange(min: 2, max: 10).GetValue();
 
-            return filler;
-        }
-    }
+		private SqlException CreateSqlException() =>
+			(SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
+
+		private Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
+			actualException => actualException.SameExceptionAs(expectedException);
+
+		private static int GetRandomNegativeNumber() =>
+		 -1 * new IntRange(min: 2, max: 9).GetValue();
+
+		private DateTimeOffset GetRandomDatetimeOffset() =>
+			new DateTimeRange(earliestDate: DateTime.UnixEpoch).GetValue();
+
+		private Language CreateRandomLanguage(DateTimeOffset dates) =>
+			CreateLanguageFiller(dates).Create();
+
+		private Language CreateRandomLanguage() =>
+			CreateLanguageFiller(GetRandomDatetimeOffset()).Create();
+
+		private Language CreateRandomModifyLanguage(DateTimeOffset dates)
+		{
+			int randomdaysInPast = GetRandomNegativeNumber();
+			Language randomLanguage = CreateRandomLanguage(dates);
+
+			randomLanguage.CreatedDate = randomLanguage.CreatedDate.AddDays(randomdaysInPast);
+
+			return randomLanguage;
+		}
+
+		private Filler<Language> CreateLanguageFiller(DateTimeOffset dates)
+		{
+			var filler = new Filler<Language>();
+
+			filler.Setup()
+				.OnType<DateTimeOffset>().Use(dates);
+
+			return filler;
+		}
+	}
 }

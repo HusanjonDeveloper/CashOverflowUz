@@ -3,13 +3,13 @@
 // Developet by CashOverflowUz Team
 //--------------------------------------------------
 
-using CashOverflowUz.Models.Locations.Exceptions;
-using CashOverflowUz.Models.Locations;
-using CashOverflowUz.Services.Foundetions.Locations;
-using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
+using CashOverflowUz.Models.Locations;
+using CashOverflowUz.Models.Locations.Exceptions;
+using CashOverflowUz.Services.Foundetions.Locations;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CashOverflowUz.Controllers
 {

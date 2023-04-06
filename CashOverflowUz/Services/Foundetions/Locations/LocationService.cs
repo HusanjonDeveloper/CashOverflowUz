@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using CashOverflowUz.Brokers.DateTimes;
 using CashOverflowUz.Brokers.Loggings;
@@ -53,7 +53,7 @@ namespace CashOverflowUz.Services.Foundetions.Locations
 		TryCatch(async () =>
 		{
 			ValidateLocationOnModify(location);
-			var maybeLocation = await this.storageBroker.SelectLocationByIdAsync(location.Id);
+			var maybeLocation = await storageBroker.SelectLocationByIdAsync(Location.Id);
 			ValidateAgainstStorageLocationOnModify(inputLocation: location, storageLocation: maybeLocation);
 
 			return await this.storageBroker.UpdateLocationAsync(location);
