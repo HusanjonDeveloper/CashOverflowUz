@@ -4,12 +4,9 @@
 // --------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using CashOverflowUz.Models.Locations.Exceptions;
 using CashOverflowUz.Models.Locations;
+using CashOverflowUz.Models.Locations.Exceptions;
 using Moq;
 using Xunit;
 

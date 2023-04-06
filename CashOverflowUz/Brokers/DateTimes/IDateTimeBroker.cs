@@ -7,8 +7,8 @@ using System;
 
 namespace CashOverflowUz.Brokers.DateTimes
 {
-    public interface IDateTimeBroker
-    {
-        DateTimeOffset GetCurrentDateTimeOffset();
-    }
+	public interface IDateTimeBroker
+	{
+		DateTimeOffset GetCurrentDateTimeOffset();
+	}
 }

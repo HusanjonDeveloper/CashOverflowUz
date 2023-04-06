@@ -11,39 +11,35 @@ using Force.DeepCloner;
 using Moq;
 using Xunit;
 
-namespace CashOverflow.Tests.Unit.Services.Foundations.Languages
+namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Languages
 {
-    public partial class LanguageServiceTests
-    {
-        private readonly object languageService;
+	public partial class LanguageServiceTests
+	{
+		[Fact]
+		public void ShouldRetrieveAllLanguages()
+		{
+			// given
+			IQueryable<Language> randomLanguages = CreateRandomLanguages();
+			IQueryable<Language> storageLanguages = randomLanguages;
+			IQueryable<Language> expectedLanguages = storageLanguages.DeepClone();
 
-        [Fact]
-        public void ShouldRetrieveAllLanguages()
-        {
-            // given
-            IQueryable<Language> randomLanguages = CreateRandomLanguages();
-            IQueryable<Language> storageLanguages = randomLanguages;
-            IQueryable<Language> expectedLanguages = storageLanguages.DeepClone();
+			this.storageBrokerMock.Setup(broker =>
+				broker.SelectAllLanguages())
+					.Returns((Delegate)storageLanguages);
 
-            this.storageBrokerMock.Setup(broker =>
-                broker.SelectAllLanguages())
-                    .Returns(storageLanguages);
+			// when
+			IQueryable<Language> actualLanguages =
+				this.languageService.RetrieveAllLanguages();
 
-            // when
-            IQueryable<Language> actualLanguages =
-                this.languageService.RetrieveAllLanguages();
+			// then
+			actualLanguages.Should().BeEquivalentTo(expectedLanguages);
 
-            // then
-            actualLanguages.Should().BeEquivalentTo(expectedLanguages);
+			this.storageBrokerMock.Verify(broker =>
+				broker.SelectAllLanguages(),
+					Times.Once);
 
-            this.storageBrokerMock.Verify(broker =>
-                broker.SelectAllLanguages(),
-                    Times.Once);
-
-            this.storageBrokerMock.VerifyNoOtherCalls();
-            this.loggingBrokerMock.VerifyNoOtherCalls();
-        }
-
-     
-    }
+			this.storageBrokerMock.VerifyNoOtherCalls();
+			this.loggingBrokerMock.VerifyNoOtherCalls();
+		}
+	}
 }

@@ -4,96 +4,94 @@
 // --------------------------------------------------------
 
 using System;
-using CashOverflow.Models.Languages.Exceptions;
+using CashOverflowUz.Models.Languages.Exceptions;
 using FluentAssertions;
 using Microsoft.Data.SqlClient;
 using Moq;
 using Xunit;
 
-namespace CashOverflow.Tests.Unit.Services.Foundations.Languages
+namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Languages
 {
-    public partial class LanguageServiceTests
-    {
-        [Fact]
-        public void ShouldThrowCriticalDependencyExceptionOnRetrieveAllWhenSqlExceptionOccursAndLogIt()
-        {
-            // given
-            SqlException sqlException = GetSqlException();
+	public partial class LanguageServiceTests
+	{
+		[Fact]
+		public void ShouldThrowCriticalDependencyExceptionOnRetrieveAllWhenSqlExceptionOccursAndLogIt()
+		{
+			// given
+			SqlException sqlException = CreateSqlException();
 
-            var failedStorageException =
-                new FailedLanguageStorageException(sqlException);
+			var failedStorageException =
+				new FailedLanguageStorageException(sqlException);
 
-            var expectedLanguageDependencyException =
-                new LanguageDependencyException(failedStorageException);
+			var expectedLanguageDependencyException =
+				new LanguageDependencyException(failedStorageException);
 
-            this.storageBrokerMock.Setup(broker =>
-                broker.SelectAllLanguages())
-                    .Throws(sqlException);
+			this.storageBrokerMock.Setup(broker =>
+				broker.SelectAllLanguages())
+					.Throws(sqlException);
 
-            // when
-            Action retrieveAllLanguagesAction = () =>
-                this.languageService.RetrieveAllLanguages();
+			// when
+			Action retrieveAllLanguagesAction = () =>
+				this.languageService.RetrieveAllLanguages();
 
-            LanguageDependencyException actualLanguageDependencyException =
-                Assert.Throws<LanguageDependencyException>(
-                    retrieveAllLanguagesAction);
+			LanguageDependencyException actualLanguageDependencyException =
+				Assert.Throws<LanguageDependencyException>(
+					retrieveAllLanguagesAction);
 
-            // then
-            actualLanguageDependencyException.Should().BeEquivalentTo(
-                expectedLanguageDependencyException);
+			// then
+			actualLanguageDependencyException.Should().BeEquivalentTo(
+				expectedLanguageDependencyException);
 
-            this.storageBrokerMock.Verify(broker =>
-                broker.SelectAllLanguages(),
-                    Times.Once);
+			this.storageBrokerMock.Verify(broker =>
+				broker.SelectAllLanguages(),
+					Times.Once);
 
-            this.loggingBrokerMock.Verify(broker =>
-                broker.LogCritical(It.Is(SameExceptionAs(
-                    expectedLanguageDependencyException))),
-                        Times.Once);
+			this.loggingBrokerMock.Verify(broker =>
+				broker.LogCritical(It.Is(SameExceptionAs(
+					expectedLanguageDependencyException))),
+						Times.Once);
 
-            this.storageBrokerMock.VerifyNoOtherCalls();
-            this.loggingBrokerMock.VerifyNoOtherCalls();
-        }
+			this.storageBrokerMock.VerifyNoOtherCalls();
+			this.loggingBrokerMock.VerifyNoOtherCalls();
+		}
 
-        [Fact]
-        public void ShouldThrowServiceExceptionOnRetrieveAllIfServiceErrorOccursAndLogItAsync()
-        {
-            // given
-            string exceptionMessage = GetRandomMessage();
-            var serviceException = new Exception(exceptionMessage);
+		[Fact]
+		public void ShouldThrowServiceExceptionOnRetrieveAllIfServiceErrorOccursAndLogItAsync()
+		{
+			// given
+			string exceptionMessage = GetRandomString();
+			var serviceException = new Exception(exceptionMessage);
 
-            var failedLanguageServiceException =
-                new FailedLanguageServiceException(serviceException);
+			var failedLanguageServiceException =
+				new FailedLanguageServiceException(serviceException);
 
-            var expectedLanguageServiceException =
-                new LanguageServiceException(failedLanguageServiceException);
+			var expectedLanguageServiceException =
+				new LanguageServiceException(failedLanguageServiceException);
 
-            this.storageBrokerMock.Setup(broker =>
-                broker.SelectAllLanguages())
-                    .Throws(serviceException);
+			this.storageBrokerMock.Setup(broker =>
+				broker.SelectAllLanguages()).Throws(serviceException);
 
-            // when
-            Action retrieveAllLanguagesAction = () =>
-                this.languageService.RetrieveAllLanguages();
+			// when
+			Action retrieveAllLanguagesAction = () =>
+				this.languageService.RetrieveAllLanguages();
 
-            LanguageServiceException actualLanguageServiceException =
-                Assert.Throws<LanguageServiceException>(
-                    retrieveAllLanguagesAction);
+			LanguageServiceException actualLanguageServiceException =
+				Assert.Throws<LanguageServiceException>(retrieveAllLanguagesAction);
 
-            // then
-            actualLanguageServiceException.Should().BeEquivalentTo(expectedLanguageServiceException);
+			// then
+			actualLanguageServiceException.Should().BeEquivalentTo(expectedLanguageServiceException);
 
-            this.storageBrokerMock.Verify(broker =>
-                broker.SelectAllLanguages(),
-                    Times.Once);
+			this.storageBrokerMock.Verify(broker =>
+				broker.SelectAllLanguages(),
+					Times.Once);
 
-            this.loggingBrokerMock.Verify(broker =>
-                broker.LogError(It.Is(SameExceptionAs(
-                    expectedLanguageServiceException))),
-                        Times.Once);
+			this.loggingBrokerMock.Verify(broker =>
+				broker.LogError(It.Is(SameExceptionAs(
+					expectedLanguageServiceException))),
+						Times.Once);
 
-            this.storageBrokerMock.VerifyNoOtherCalls();
-            this.loggingBrokerMock.VerifyNoOtherCalls();
-        }
-    }
+			this.storageBrokerMock.VerifyNoOtherCalls();
+			this.loggingBrokerMock.VerifyNoOtherCalls();
+		}
+	}
 }

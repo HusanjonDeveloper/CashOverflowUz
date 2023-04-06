@@ -3,14 +3,14 @@
 // Developet by CashOverflowUz Team
 //--------------------------------------------------
 
-using CashOverflowUz.Models.Locations.Exceptions;
-using CashOverflowUz.Models.Locations;
 using System;
+using CashOverflowUz.Models.Locations;
+using CashOverflowUz.Models.Locations.Exceptions;
 
 namespace CashOverflowUz.Services.Foundetions.Locations
 {
-    public partial class LocationService
-    {
+	public partial class LocationService
+	{
 
 		private void ValidateLocationOnAdd(Location location)
 		{

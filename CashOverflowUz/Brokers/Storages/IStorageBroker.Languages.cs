@@ -10,12 +10,12 @@ using CashOverflowUz.Models.Languages;
 
 namespace CashOverflow.Brokers.Storages
 {
-    public partial interface IStorageBroker
-    {
-        ValueTask<Language> InsertLanguageAsync(Language language);
-        IQueryable<Language> SelectAllLanguages();
-        ValueTask<Language> SelectLanguageByIdAsync(Guid languageId);
-        ValueTask<Language> UpdateLanguageAsync(Language language);
-        ValueTask<Language> DeleteLanguageAsync(Language language);
-    }
+	public partial interface IStorageBroker
+	{
+		ValueTask<Language> InsertLanguageAsync(Language language);
+		IQueryable<Language> SelectAllLanguages();
+		ValueTask<Language> SelectLanguageByIdAsync(Guid languageId);
+		ValueTask<Language> UpdateLanguageAsync(Language language);
+		ValueTask<Language> DeleteLanguageAsync(Language language);
+	}
 }

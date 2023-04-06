@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CashOverflowUz.Controllers
 {
-    [ApiController]
-    [Route("api/Controller")]
-    public class HomeController :ControllerBase
-    {
-        [HttpGet]
-        public string Get() => "Cash Flows...";
-    }
+	[ApiController]
+	[Route("api/Controller")]
+	public class HomeController : ControllerBase
+	{
+		[HttpGet]
+		public string Get() => "Cash Flows...";
+	}
 }
