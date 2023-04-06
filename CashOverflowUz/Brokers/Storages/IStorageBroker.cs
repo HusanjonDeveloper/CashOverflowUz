@@ -1,4 +1,4 @@
-﻿namespace CashOverflowUz.Brokers.Storages
+namespace CashOverflowUz.Brokers.Storages
 {
 	public partial interface IStorageBroker
 	{
