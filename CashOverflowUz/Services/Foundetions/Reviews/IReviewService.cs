@@ -8,11 +8,11 @@ using CashOverflowUz.Models.Reviews;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CashOverflowUz.Services.Reviews
+namespace CashOverflowUz.Services.Foundetions.Reviews
 {
-	public interface IReviewService
-	{
-		ValueTask<Review> AddReviewAsync(Review review);
-		IQueryable<Review> RetrieveAllReviews();
-	}
+    public interface IReviewService
+    {
+        ValueTask<Review> AddReviewAsync(Review review);
+        IQueryable<Review> RetrieveAllReviews();
+    }
 }

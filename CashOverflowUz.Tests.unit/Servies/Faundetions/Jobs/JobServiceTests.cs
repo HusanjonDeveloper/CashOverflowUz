@@ -14,6 +14,7 @@ using CashOverflow.Brokers.Storages;
 using CashOverflowUz.Brokers.DateTimes;
 using CashOverflowUz.Brokers.Loggings;
 using CashOverflowUz.Models.job;
+using CashOverflowUz.Services.Foundetions.Jobs;
 using CashOverflowUz.Services.Jobs;
 using Microsoft.Data.SqlClient;
 using Moq;
@@ -23,7 +24,7 @@ using Xunit;
 
 namespace CashOverflowUz.Tests.unit.Servies.Faundetions.Jobs
 {
-	public partial class JobServiceTests
+    public partial class JobServiceTests
 	{
 		private readonly Mock<IStorageBroker> storageBrokerMock;
 		private readonly Mock<IDateTimeBroker> dateTimeBrokerMock;

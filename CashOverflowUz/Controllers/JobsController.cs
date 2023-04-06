@@ -9,13 +9,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
-using CashOverflowUz.Services.Jobs;
 using CashOverflowUz.Models.jobs.Exceptions;
 using Microsoft.AspNetCore.Http.HttpResults;
+using CashOverflowUz.Services.Foundetions.Jobs;
 
 namespace CashOverflowUz.Controllers
 {
-	[ApiController]
+    [ApiController]
 	[Route("api/[controller]")]
 	public class JobsController : RESTFulController
 	{
