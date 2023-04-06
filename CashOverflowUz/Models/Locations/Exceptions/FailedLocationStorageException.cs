@@ -3,14 +3,15 @@
 // Developet by CashOverflowUz Team
 //--------------------------------------------------
 
+using System;
 using Xeptions;
 
 namespace CashOverflowUz.Models.Locations.Exceptions
 {
-	public class LocationValidationException : Xeption
+	public class FailedLocationStorageException : Xeption
 	{
-		public LocationValidationException(Xeption innerException)
-			: base(message: "Location validation error occurred, fix the errors and try again.", innerException)
+		public FailedLocationStorageException(Exception innerException)
+			: base(message: "Failed location storage exception occurred, contact support.", innerException)
 		{ }
 	}
 }

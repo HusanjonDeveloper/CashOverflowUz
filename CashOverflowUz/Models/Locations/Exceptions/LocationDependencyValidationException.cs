@@ -7,10 +7,10 @@ using Xeptions;
 
 namespace CashOverflowUz.Models.Locations.Exceptions
 {
-	public class LocationValidationException : Xeption
+	public class LocationDependencyValidationException : Xeption
 	{
-		public LocationValidationException(Xeption innerException)
-			: base(message: "Location validation error occurred, fix the errors and try again.", innerException)
+		public LocationDependencyValidationException(Xeption innerException)
+			: base(message: "Location dependency validation error occurred, fix the errors and try again.", innerException)
 		{ }
 	}
 }
