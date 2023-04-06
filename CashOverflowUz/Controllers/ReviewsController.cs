@@ -7,13 +7,13 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
-using CashOverflowUz.Services.Reviews;
 using CashOverflowUz.Models.Reviews;
 using CashOverflowUz.Models.Reviews.Exceptions;
+using CashOverflowUz.Services.Foundetions.Reviews;
 
 namespace CashOverflowUz.Controllers
 {
-	[ApiController]
+    [ApiController]
 	[Route("api/[controller]")]
 	public class ReviewsController : RESTFulController
 	{
