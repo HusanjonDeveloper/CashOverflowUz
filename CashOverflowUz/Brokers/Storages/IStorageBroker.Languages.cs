@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using CashOverflowUz.Models.Languages;
-using CashOverflowUz.Models.Salaries;
+using CashOverflowUz.Models.Reviews;
 
 namespace CashOverflow.Brokers.Storages
 {
@@ -18,6 +18,7 @@ namespace CashOverflow.Brokers.Storages
 		ValueTask<Language> SelectLanguageByIdAsync(Guid languageId);
 		ValueTask<Language> UpdateLanguageAsync(Language language);
 		ValueTask<Language> DeleteLanguageAsync(Language language);
-		Task<ValueTask<Salary>> InsertSalaryAsync(Salary salary);
+		Task<ValueTask<Review>> InsertReviewAsync(Review review);
+		IQueryable<Review> SelectAllReviews();
 	}
 }
