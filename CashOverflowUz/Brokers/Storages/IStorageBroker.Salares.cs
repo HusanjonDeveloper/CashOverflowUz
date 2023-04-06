@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using CashOverflowUz.Models.Salaries;
 
 namespace CashOverflowUz.Brokers.Storages
