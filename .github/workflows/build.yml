@@ -2,10 +2,10 @@ name: CashOverflowUz
 on:
   push:
     branches:
-    - Master
+    - Main
   pull_request:
     branches:
-    - Master
+    - Main
 jobs:
   build:
     runs-on: ubuntu-latest
