@@ -15,4 +15,4 @@ namespace CashOverflowUz.Models.Languages.Exceptions
 		{ }
 	}
 }
-}
+
